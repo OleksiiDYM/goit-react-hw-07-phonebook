@@ -35,7 +35,9 @@ const ContactForm = () => {
 
     if (
       contacts.some(
-        contact => contact.name.toLowerCase() === name.toLowerCase()
+        contact =>
+          contact.name.toLowerCase() === name.toLowerCase() ||
+          contact.number === number
       )
     )
       alertmessage(name);
