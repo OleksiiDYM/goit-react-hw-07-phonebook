@@ -6,16 +6,16 @@ import {
   FormButton,
 } from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors';
-import { addContact } from 'redux/contactsSlice';
+import { selectContacts } from 'redux/selectors';
+import { createContact } from 'redux/operation';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
-  const createContact = contact => dispatch(addContact(contact));
+  const addContact = contact => dispatch(createContact(contact));
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -41,14 +41,13 @@ const ContactForm = () => {
       )
     )
       alertmessage(name);
-    else createContact({ name, number });
+    else addContact({ name, phone: number });
 
     setName('');
     setNumber('');
   };
 
-  const alertmessage = name =>
-    alert(`${name} or ${number} is already in contacts`);
+  const alertmessage = name => alert(`${name} is already in contacts`);
 
   return (
     <ContactFormWrapper onSubmit={onAddToContactSubmit}>
